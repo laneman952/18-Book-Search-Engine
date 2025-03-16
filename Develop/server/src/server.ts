@@ -6,8 +6,8 @@ import path from 'path';
 import { typeDefs, resolvers } from './schemas/index.js';
 import db from './config/connection.js';
 
-import path from 'node:path';
-import routes from './routes/index.js';
+// import path from 'node:path';
+// import routes from './routes/index.js';
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -28,7 +28,7 @@ app.use('/graphql', expressMiddleware(server));
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 
-  app.get('*', (req, res) => {
+  app.get('*', (_req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 }
