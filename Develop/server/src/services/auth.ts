@@ -1,6 +1,6 @@
 import type { Request } from 'express';
 import jwt from 'jsonwebtoken';
-import { GrapghQlError } from 'graphql';
+import { GraphQLError } from 'graphql';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -39,7 +39,7 @@ export const signToken = (username: string, email: string, _id: unknown) => {
   return jwt.sign(payload, secretKey, { expiresIn: '1h' });
 };
 
-export class AuthError extends GraphQlError {
+export class AuthError extends GraphQLError {
   constructor(message: string) {
     super(message);
     Object.defineProperty(this, 'name', {
