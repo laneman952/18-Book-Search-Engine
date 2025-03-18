@@ -1,21 +1,22 @@
-import User, { UserDocument } from '../models/User';
-import Book, { BookDocument } from '../models/Book';
+import { User } from '../models/index.js';
+import { AuthError, signToken } from '../services/auth.js';
+
 
 import { GraphQLError } from "graphql";
 
 const resolvers = {
   Query: {
-    users: async (): Promise<UserDocument[] | null> => {
-        try {
-    return await User.find({});
-    } catch (error) {
-      throw new GraphQLError("Failed to fetch users", {
-        extensions: { code: "INTERNAL_SERVER_ERROR" },
-      });
+    me: async (_parent: any, _args: any, context: any): Promise<any> => {
+        if (context.user) {
+            const userData = await User.findOne({ _id: context.user._id })
+                .select('-__v -password')
+            return userData;
+        }
+        throw new AuthError('User not authenticated');
+        }
+      }
     }
-    },
-  },
-}
 Mutation: {
+
 }
 export default resolvers;
