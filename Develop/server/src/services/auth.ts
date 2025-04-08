@@ -22,7 +22,7 @@ export const authenticateToken = ({req} : {req:Request}) => {
     return req; // Unauthorized
   }
   try {
-    const secretKey = process.env.JWT_SECRET_KEY || '';
+    const secretKey = process.env.JWT_SECRET_KEY || 'test';
     const {data}: any =  jwt.verify(token, secretKey, { maxAge: '1h' });
     req.user = data as JwtPayload;
   }
@@ -34,7 +34,7 @@ export const authenticateToken = ({req} : {req:Request}) => {
 
 export const signToken = (username: string, email: string, _id: unknown) => {
   const payload = { username, email, _id };
-  const secretKey = process.env.JWT_SECRET_KEY || '';
+  const secretKey = process.env.JWT_SECRET_KEY || 'test';
 
   return jwt.sign(payload, secretKey, { expiresIn: '1h' });
 };

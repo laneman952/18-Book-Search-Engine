@@ -4,7 +4,7 @@
 
   
   ## Description
-  This project is creating a   
+  This project is creating an app that searches for books that the user types in. It started with a Restful API and was refactored to a Graphql API.  
 
 
   ## Table of Contents
